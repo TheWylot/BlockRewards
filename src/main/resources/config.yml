@@ -1,19 +1,47 @@
+# The prefix that will be used for all plugin messages.
 prefix: "&7[#FFFFFFBlockRewards&7] "
+
+# Whether to disable rewards for blocks broken with Silk Touch enchantment.
 disable-silk-touch: true
-suppress-command-feedback: true #change if you want operators to receive the give messages
+
+# Whether to suppress command feedback for operators.
+suppress-command-feedback: true
+
+# List of worlds where the rewards are disabled.
 disabled-worlds:
   - custom_world1
   - custom_world2
 
+messages:
+  # Message shown when the player toggles reward messages on.
+  toggle-on: "&aMessages have been enabled."
+
+  # Message shown when the player toggles reward messages off.
+  toggle-off: "&cMessages have been disabled."
+
+# Configuration for custom rewards.
 CustomReward1:
-  Material: BEDROCK # you can find the list of items here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+  # The type of block that triggers the reward.
+  Material: BEDROCK
+
+  # The chance (in percentage) for the reward to be triggered.
   chance: 10 # 10% chance
+
+  # Commands executed when the reward is triggered.
   commands:
     - "give <player> minecraft:diamond 2"
     - "give <player> minecraft:emerald 2"
+
+  # Message sent to the player when the reward is triggered.
   message: "&6You were lucky and found treasure while mining"
-  # Messages displayed to the player
-  #COLOR CODES CAN BE FOUND https://htmlcolorcodes.com/
+
+  # Title message displayed to the player when the reward is triggered.
+  title-message: "&fYou found &6Treasure &fwhile mining."
+
+  # Action bar message displayed to the player when the reward is triggered.
+  actionbar-message: "&6Treasure found!"
+
+  # Permission required for the player to receive this reward.
   permission: "your_permission"
 
 CustomReward2:
@@ -23,4 +51,6 @@ CustomReward2:
     - "give <player> minecraft:gold_ingot 2"
     - "give <player> minecraft:gold_nugget 1"
   message: "&eYou were lucky and found some extra gold!"
+  title-message: "&fYou found &eGold &fwhile mining."
+  actionbar-message: "&eGold found!"
   permission: "blockrewards.reward2"

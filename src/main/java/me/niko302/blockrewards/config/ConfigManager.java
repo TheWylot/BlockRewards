@@ -23,6 +23,8 @@ public class ConfigManager {
     private boolean disableSilkTouch;
     private boolean suppressCommandFeedback;
     private List<String> disabledWorlds;
+    private String toggleMessageOn;
+    private String toggleMessageOff;
 
     public ConfigManager(BlockRewards plugin) {
         this.plugin = plugin;
@@ -46,6 +48,8 @@ public class ConfigManager {
         disableSilkTouch = config.getBoolean("disable-silk-touch", true);
         suppressCommandFeedback = config.getBoolean("suppress-command-feedback", true);
         disabledWorlds = config.getStringList("disabled-worlds");
+        toggleMessageOn = config.getString("messages.toggle-on", "&aMessages have been enabled.");
+        toggleMessageOff = config.getString("messages.toggle-off", "&cMessages have been disabled.");
     }
 
     public String color(String message) {

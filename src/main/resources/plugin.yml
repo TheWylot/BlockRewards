@@ -7,3 +7,14 @@ commands:
     description: Main command for BlockRewards
     usage: /blockrewards <reload>
     permission: blockrewards.use
+
+permissions:
+  blockrewards.use:
+    description: Allows use of BlockRewards commands.
+    default: true
+  blockrewards.reload:
+    description: Allows reloading the plugin configuration.
+    default: op
+  blockrewards.toggle:
+    description: Allows toggling reward messages.
+    default: true

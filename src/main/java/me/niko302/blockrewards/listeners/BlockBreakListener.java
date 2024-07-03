@@ -1,6 +1,8 @@
 package me.niko302.blockrewards.listeners;
 
 import me.niko302.blockrewards.BlockRewards;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
@@ -13,6 +15,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class BlockBreakListener implements Listener {
 
@@ -27,6 +30,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
+        UUID playerUUID = player.getUniqueId();
         String worldName = player.getWorld().getName();
         Material blockType = event.getBlock().getType();
 
@@ -49,6 +53,8 @@ public class BlockBreakListener implements Listener {
                     double chance = rewardConfig.getDouble("chance", 0);
                     if (random.nextDouble() * 100 < chance) {
                         String message = rewardConfig.getString("message", "");
+                        String titleMessage = rewardConfig.getString("title-message", "");
+                        String actionBarMessage = rewardConfig.getString("actionbar-message", "");
                         String permission = rewardConfig.getString("permission", "");
 
                         if (player.hasPermission(permission)) {
@@ -69,7 +75,19 @@ public class BlockBreakListener implements Listener {
                                 }
                             }
 
-                            player.sendMessage(plugin.getConfigManager().color(plugin.getConfigManager().getPrefix() + message));
+                            if (plugin.isPlayerMessagesEnabled(playerUUID)) {
+                                if (!titleMessage.isEmpty()) {
+                                    player.sendTitle(plugin.getConfigManager().color(titleMessage), "", 10, 70, 20);
+                                }
+
+                                if (!actionBarMessage.isEmpty()) {
+                                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(plugin.getConfigManager().color(actionBarMessage)));
+                                }
+
+                                if (!message.isEmpty()) {
+                                    player.sendMessage(plugin.getConfigManager().color(plugin.getConfigManager().getPrefix() + message));
+                                }
+                            }
                         }
                     }
                 }

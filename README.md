@@ -16,6 +16,7 @@ BlockRewards is a Minecraft Bukkit/Spigot/Paper plugin designed to reward player
 - Permission-based rewards.
 - Suppress command feedback option.
 - Disable rewards in specific worlds.
+- Toggle reward messages for action bars, titles, and chat messages.
 
 ## Config
 
@@ -24,9 +25,12 @@ View and edit the configuration file here: <a href="https://github.com/Niko302/B
 ## Commands
 
 - <b>/blockrewards reload</b>: Reloads the plugin configuration.
+- <b>/blockrewards toggle</b>: Toggles the display of reward messages for the player.
 
 ## Permissions
 
 - <b>blockrewards.reward2</b>: Allows the player to receive the custom reward for mining the specified block.
 - <b>your_permission</b>: Allows the player to receive the custom reward for mining the specified block.
-- <b>blockrewards.use</b>: Allows the player to reload the plugin configuration.
+- <b>blockrewards.use</b>: Allows the player to use BlockRewards commands.
+- <b>blockrewards.reload</b>: Allows reloading the plugin configuration.
+- <b>blockrewards.toggle</b>: Allows toggling reward messages.

@@ -14,8 +14,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class BlockBreakListener implements Listener {
 
@@ -48,8 +50,12 @@ public class BlockBreakListener implements Listener {
         for (String key : plugin.getConfig().getConfigurationSection("").getKeys(false)) {
             ConfigurationSection rewardConfig = plugin.getConfigManager().getCustomRewardConfig(key);
             if (rewardConfig != null) {
-                Material rewardBlock = Material.valueOf(rewardConfig.getString("Material", "DIAMOND_ORE"));
-                if (blockType == rewardBlock) {
+                List<String> materialList = rewardConfig.getStringList("Material");
+                List<Material> rewardBlocks = materialList.stream()
+                        .map(Material::valueOf)
+                        .collect(Collectors.toList());
+
+                if (rewardBlocks.contains(blockType)) {
                     double chance = rewardConfig.getDouble("chance", 0);
                     if (random.nextDouble() * 100 < chance) {
                         String message = rewardConfig.getString("message", "");
@@ -59,7 +65,6 @@ public class BlockBreakListener implements Listener {
 
                         if (player.hasPermission(permission)) {
                             if (plugin.getConfigManager().isSuppressCommandFeedback()) {
-                                // Suppress command feedback
                                 boolean previousCommandFeedback = Boolean.parseBoolean(String.valueOf(player.getWorld().getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK)));
                                 player.getWorld().setGameRule(GameRule.SEND_COMMAND_FEEDBACK, false);
 
@@ -67,7 +72,6 @@ public class BlockBreakListener implements Listener {
                                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("<player>", player.getName()));
                                 }
 
-                                // Restore command feedback
                                 player.getWorld().setGameRule(GameRule.SEND_COMMAND_FEEDBACK, previousCommandFeedback);
                             } else {
                                 for (String command : rewardConfig.getStringList("commands")) {

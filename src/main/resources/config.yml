@@ -22,7 +22,9 @@ messages:
 # Configuration for custom rewards.
 CustomReward1:
   # The type of block that triggers the reward.
-  Material: BEDROCK
+  Material:
+    - BEDROCK
+    - COAL_ORE # Support Multiple Block Types
 
   # The chance (in percentage) for the reward to be triggered.
   chance: 10 # 10% chance
@@ -45,7 +47,9 @@ CustomReward1:
   permission: "your_permission"
 
 CustomReward2:
-  Material: SPONGE
+  Material:
+    - SPONGE
+    - DIAMOND_ORE # Supports Multiple Block Types
   chance: 0.30 # 0.30% chance
   commands:
     - "give <player> minecraft:gold_ingot 2"
